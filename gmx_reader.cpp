@@ -54,7 +54,7 @@ void gmx_reader::search_for_time(float time)
     {
         read_next();
     }
-    while ( fabs(time - gmxtime) < 1E-3 ); // allow some tolerance for numerical precision
+    while ( fabs(time - gmxtime) > 1E-4 ); // allow some tolerance for numerical precision
 }
 
 // advance to next sample
@@ -63,8 +63,9 @@ void gmx_reader::search_for_sample(int sample)
     do
     {
         read_next();
+        //printf("%.8f %.8f %.8f\n", gmxtime, startTime + sampleEvery*sample, gmxtime - (startTime + sampleEvery*sample));
     }
-    while (fabs(gmxtime - (startTime + sampleEvery*sample))>1E-3); // allow some tolerance for numerical precision
+    while (fabs(gmxtime - (startTime + sampleEvery*sample))>1E-4); // allow some tolerance for numerical precision
 }
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
