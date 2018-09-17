@@ -81,7 +81,7 @@ void gmx_reader::read_in_param( string _inpf_ )
             if ( nuParams == nuParamsMax - 1 ) {
                 cout << "To many uParams. Max is: " << nuParams << endl;
             }
-            cout << "\tWARNING: Parameter " << para << "not recognized. Saving as uParam["\
+            cout << "\tWARNING: Parameter " << para << " not recognized. Saving as uParam["\
                 << nuParams << "] with uValue " << value << "." << endl ;
             uParams[nuParams] = para;
             uValues[nuParams] = value;
@@ -215,7 +215,7 @@ int gmx_reader::get_frame_number(float time)
     // check if time is valid -- if it isnt evenly divisible by dt, then that frame is not availible
     if ( fabs(remainder( time, dt )) > 1E-4 ) return -1;
     // get the frame number from the time
-    frame = (int) (time/dt);
+    frame = (int) round(time/dt);
     // check to make sure we have that many frames
     if (frame > nframes) return -1;
     return frame;
