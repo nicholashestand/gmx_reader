@@ -207,6 +207,13 @@ void gmx_reader::read_frame(int frame)
     read_next_frame();
 }
 
+bool gmx_reader::checktime(float time)
+// make sure the time we want is the same time as in the gmxtime
+{
+    if ( fabs( time - gmxtime ) > 1E-4 ) return false;
+    else return true;
+}
+
 int gmx_reader::get_frame_number(float time)
 // returns the frame number for a given time
 {

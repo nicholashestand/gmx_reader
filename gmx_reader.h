@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#ifndef gmx_H
+#ifndef gmx_H 
 #define gmx_H
 class gmx_reader
 {
@@ -35,6 +35,7 @@ class gmx_reader
         void read_frame(int frame);
         void index_frames();
         int  get_frame_number(float time);
+        bool checktime(float time);
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
         // Useful vector operations
