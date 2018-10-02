@@ -9,8 +9,7 @@ class gmx_reader
     protected:
         // Class variables
         XDRFILE *trj;
-        int     step;
-        float   startTime, prec, nextTime;
+        float   startTime, nextTime;
         static const int nuParamsMax = 100;
         int64_t *frame_offset;
 
@@ -18,9 +17,9 @@ class gmx_reader
         // Class variables
         string  xtcf, offsetf;
         rvec    *x;
-        int     natoms, nmol, natoms_mol, nframes, nuParams;
+        int     natoms, nmol, natoms_mol, nframes, nuParams, step;
         matrix  box;
-        float   gmxtime, dt;
+        float   gmxtime, dt, prec;
         string  uParams[nuParamsMax], uValues[nuParamsMax];
 
         // Default constructor and destructor
