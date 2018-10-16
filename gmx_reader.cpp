@@ -111,7 +111,7 @@ void gmx_reader::xtcf_init(float startTime)
     read_xtc_natoms( (char *) xtcf.c_str(), &natoms );
     cout << "Found " << natoms << " atoms." << endl; 
     nmol = natoms/natoms_mol; 
-    x      = new rvec[ natoms ];
+    x    = new rvec[ natoms ];
 
     // find frame time offsets -- assume they are regular;
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
