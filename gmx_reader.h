@@ -9,7 +9,6 @@ class gmx_reader
     protected:
         // Class variables
         XDRFILE *trj;
-        float   startTime, nextTime;
         static const int nuParamsMax = 100;
         int64_t *frame_offset;
 
@@ -49,7 +48,7 @@ class gmx_reader
         // Read parameter file for trajectory
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         void read_in_param( string _inpf_ );
-        void xtcf_init(float startTime);
+        void xtcf_init();
         void write_offsets();
         void read_offsets();
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

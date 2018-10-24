@@ -24,7 +24,7 @@ gmx_reader::gmx_reader( string _inpf_ )
 // Default constructor
 {
     gmx_reader::read_in_param( _inpf_ );
-    gmx_reader::xtcf_init( startTime );
+    gmx_reader::xtcf_init( );
 }
 
 gmx_reader::~gmx_reader()
@@ -99,7 +99,7 @@ void gmx_reader::read_in_param( string _inpf_ )
     printf(">>> Done reading input file and setting parameters\n");
 }
 
-void gmx_reader::xtcf_init(float startTime)
+void gmx_reader::xtcf_init()
 // Initialize the trajectory file for reading
 {
     int est_nframes;
