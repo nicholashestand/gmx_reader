@@ -214,7 +214,7 @@ bool gmx_reader::checktime(float time)
     else return true;
 }
 
-int gmx_reader::get_frame_number(float time)
+int gmx_reader::get_frame_number(double time)
 // returns the frame number for a given time
 {
     int frame;
