@@ -18,7 +18,8 @@ class gmx_reader
         rvec    *x;
         int     natoms, nmol, natoms_mol, nframes, nuParams, step;
         matrix  box;
-        float   gmxtime, dt, prec;
+        float   gmxtime, prec;
+        double  dt;
         string  uParams[nuParamsMax], uValues[nuParamsMax];
 
         // Default constructor and destructor
@@ -33,7 +34,7 @@ class gmx_reader
         void read_frame(int frame);
         void index_frames();
         int  get_frame_number(double time);
-        bool checktime(float time);
+        bool checktime(double time);
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
         // Useful vector operations

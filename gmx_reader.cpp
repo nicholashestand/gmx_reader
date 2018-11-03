@@ -207,10 +207,10 @@ void gmx_reader::read_frame(int frame)
     read_next_frame();
 }
 
-bool gmx_reader::checktime(float time)
+bool gmx_reader::checktime(double time)
 // make sure the time we want is the same time as in the gmxtime
 {
-    if ( fabs( time - gmxtime ) > 1E-4 ) return false;
+    if ( fabs( time - gmxtime ) > 1E-2 ) return false;
     else return true;
 }
 
@@ -220,7 +220,11 @@ int gmx_reader::get_frame_number(double time)
     int frame;
 
     // check if time is valid -- if it isnt evenly divisible by dt, then that frame is not availible
-    if ( fabs(remainder( time, dt )) > 1E-4 ) return -1;
+    if ( fabs(remainder( time, dt )) > 1E-2 ){
+        cout << "Warning get_frame_number failed. Aborting. " << endl;
+        exit(0);
+        return -1;
+    }
     // get the frame number from the time
     frame = (int) round(time/dt);
     // check to make sure we have that many frames
