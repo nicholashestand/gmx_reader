@@ -105,9 +105,7 @@ void gmx_reader::xtcf_init()
 {
     int est_nframes;
     float time;
-    int iomag;
-    const int floatprec = 1000000;
-
+    const float fs=1000;
 
     // Get the number of atoms, molecules, and allocate space for the positions
     cout << "Will open and read trajectory from: " << xtcf << endl;
@@ -120,9 +118,8 @@ void gmx_reader::xtcf_init()
     // find frame time offsets -- assume they are regular;
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
     time = gmxtime;
-    iomag = pow(10,floor(log10(time)));
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
-    dt = ((int) (gmxtime*floatprec/iomag) - (int) (time*floatprec/iomag))/(1.*floatprec/iomag);
+    dt = floor(fs*(gmxtime - time))/fs;// round dt to the nearest femptosecond
     cout << "Frame time offset is: " << dt << " (ps)" << endl;
 
     // close the xdr file
