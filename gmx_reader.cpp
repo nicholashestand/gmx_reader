@@ -104,6 +104,8 @@ void gmx_reader::xtcf_init()
 {
     int est_nframes;
     float time;
+    const int floatprec = 1000000;
+
 
     // Get the number of atoms, molecules, and allocate space for the positions
     cout << "Will open and read trajectory from: " << xtcf << endl;
@@ -117,7 +119,7 @@ void gmx_reader::xtcf_init()
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
     time = gmxtime;
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
-    dt = round((gmxtime - time)*(prec/10))/((prec/10)); // make slightly less than full precision to avoid rounding problems
+    dt = round((gmxtime - time)*(floatprec))/((floatprec));
     cout << "Frame time offset is: " << dt << " (ps)" << endl;
 
     // close the xdr file
@@ -222,7 +224,6 @@ bool gmx_reader::checktime(double time)
     igmxtime = (int) round(gmxtime*floatprec);
 
     if ( itime - igmxtime != 0 ) return false;
-//  if ( fabs( time - gmxtime ) > 1E-2 ) return false;
     return true;
 }
 
