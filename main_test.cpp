@@ -5,8 +5,8 @@
 #include <sstream>
 #include <stdlib.h>
 #include <math.h>
-#include <xdrfile/xdrfile.h>
-#include <xdrfile/xdrfile_xtc.h>
+#include <xdrfile.h>
+#include <xdrfile_xtc.h>
 #include <gmx_reader.h>
 
 int main( int argc, char* argv[] )
@@ -42,10 +42,13 @@ int main( int argc, char* argv[] )
         reader.read_frame(frameno);
         cout << "frame: " << frameno << " time: " << reader.gmxtime << " (ps)" << endl;
     }
+    cout << reader.checktime(100.2) << endl;
 
     frameno = reader.get_frame_number( 1. );
     if ( frameno != -1 ){
         reader.read_frame(frameno);
         cout << "frame: " << frameno << " time: " << reader.gmxtime << " (ps)" << endl;
     }
+    cout << reader.checktime(1.) << endl;
+
 }
