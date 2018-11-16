@@ -218,10 +218,7 @@ bool gmx_reader::checktime(float time)
     float diff;
 
     diff = fabs(time - gmxtime);
-
-    cout << FLT_EPSILON << endl;
     if ( diff > fabs(gmxtime) * FLT_EPSILON ) return false;
-    //if ( itime - igmxtime != 0 ) return false;
     return true;
 }
 
