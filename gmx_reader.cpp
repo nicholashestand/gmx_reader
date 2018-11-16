@@ -104,6 +104,7 @@ void gmx_reader::xtcf_init()
 {
     int est_nframes;
     float time;
+    int iomag;
     const int floatprec = 1000000;
 
 
@@ -118,9 +119,9 @@ void gmx_reader::xtcf_init()
     // find frame time offsets -- assume they are regular;
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
     time = gmxtime;
+    iomag = pow(10,floor(log10(time)));
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
-    dt = ((int) (gmxtime*floatprec) - (int) (time*floatprec))/(1.*floatprec);
-    //dt = round((gmxtime - time)*(floatprec))/((floatprec));
+    dt = ((int) (gmxtime*floatprec/iomag) - (int) (time*floatprec/iomag))/(1.*floatprec/iomag);
     cout << "Frame time offset is: " << dt << " (ps)" << endl;
 
     // close the xdr file
@@ -214,6 +215,7 @@ bool gmx_reader::checktime(double time)
 // make sure the time we want is the same time as in the gmxtime
 {
     int itime, igmxtime;
+    int iomag;
     const int floatprec = 1000000;
 
     // to avoid problems with precision, convert time to an integer
@@ -221,8 +223,9 @@ bool gmx_reader::checktime(double time)
     // I think everything should be working though and the correct frames should be read, if not
     // this will check for problems at small times but if the time gets too big, it may not
     // work any more due to precision issues
-    itime = (int) round(time*floatprec);
-    igmxtime = (int) round(gmxtime*floatprec);
+    iomag = pow(10,floor(log10(time)));
+    itime = (int) round(time*floatprec/iomag);
+    igmxtime = (int) round(gmxtime*floatprec/iomag);
 
     if ( itime - igmxtime != 0 ) return false;
     return true;
