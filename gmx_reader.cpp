@@ -14,6 +14,7 @@
 #include <xdrfile_xtc.h>
 #include <xtc_seek.h>
 #include "gmx_reader.h"
+#include <cfloat>
 
 using namespace std;
 
@@ -211,23 +212,16 @@ void gmx_reader::read_frame(int frame)
     read_next_frame();
 }
 
-bool gmx_reader::checktime(double time)
+bool gmx_reader::checktime(float time)
 // make sure the time we want is the same time as in the gmxtime
 {
-    int itime, igmxtime;
-    int iomag;
-    const int floatprec = 1000000;
+    float diff;
 
-    // to avoid problems with precision, convert time to an integer
-    // -- the best we can do is a check to the precision of a float
-    // I think everything should be working though and the correct frames should be read, if not
-    // this will check for problems at small times but if the time gets too big, it may not
-    // work any more due to precision issues
-    iomag = pow(10,floor(log10(time)));
-    itime = (int) round(time*floatprec/iomag);
-    igmxtime = (int) round(gmxtime*floatprec/iomag);
+    diff = fabs(time - gmxtime);
 
-    if ( itime - igmxtime != 0 ) return false;
+    cout << FLT_EPSILON << endl;
+    if ( diff > fabs(gmxtime) * FLT_EPSILON ) return false;
+    //if ( itime - igmxtime != 0 ) return false;
     return true;
 }
 

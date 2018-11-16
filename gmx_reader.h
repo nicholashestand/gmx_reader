@@ -34,7 +34,7 @@ class gmx_reader
         void read_frame(int frame);
         void index_frames();
         int  get_frame_number(double time);
-        bool checktime(double time);
+        bool checktime(float time);
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
         // Useful vector operations
