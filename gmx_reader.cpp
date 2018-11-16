@@ -119,7 +119,8 @@ void gmx_reader::xtcf_init()
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
     time = gmxtime;
     read_xtc( trj, natoms, &step, &gmxtime, box, x, &prec );
-    dt = round((gmxtime - time)*(floatprec))/((floatprec));
+    dt = ((int) (gmxtime*floatprec) - (int) (time*floatprec))/(1.*floatprec);
+    //dt = round((gmxtime - time)*(floatprec))/((floatprec));
     cout << "Frame time offset is: " << dt << " (ps)" << endl;
 
     // close the xdr file
